@@ -1,0 +1,124 @@
+﻿@model IEnumerable<TruYum.Models.MenuItem>
+
+@{
+    ViewBag.Title = "MenuItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MenuItems</h2>
+
+@if(ViewBag.isAdmin)
+{
+    <p>
+        <button class="alert-info">
+            @Html.ActionLink("Create New", "Create", "MenuItems")
+        </button>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfLaunch)
+            </th>
+            <th>
+                Category @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FreeDelivery)
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfLaunch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreeDelivery)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "MenuItems", new { id = item.Id }, null)
+                </td>
+                @Html.HiddenFor(modelItem => item.Id)
+            </tr>
+        }
+    </table>
+
+}
+
+else
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FreeDelivery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            Categroy @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            Action
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if(item.Active == true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreeDelivery)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Add to Cart", "AddToCart", "MenuItems", new { id = item.Id }, null)
+                </td>
+                @Html.HiddenFor(modelItem => item.Id)
+            </tr>
+        }
+
+    }
+</table>
+
+}
